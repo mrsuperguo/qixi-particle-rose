@@ -85,7 +85,12 @@ new GLTFLoader().load(
   buildParticlesFromModel,
   (event) => {
     if (!event.total) return;
-    loadingText.textContent = `正在采样玫瑰 ${Math.round(event.loaded / event.total * 100)}%`;
+    const progress = THREE.MathUtils.clamp(
+      Math.round(event.loaded / event.total * 100),
+      0,
+      100
+    );
+    loadingText.textContent = `正在采样玫瑰 ${progress}%`;
   },
   (error) => {
     console.error(error);

@@ -33,7 +33,7 @@ controls.enableRotate = true;
 controls.minDistance = 4.2;
 controls.maxDistance = 10;
 controls.autoRotate = true;
-controls.autoRotateSpeed = 0.45;
+controls.autoRotateSpeed = 12;
 
 const rose = new THREE.Group();
 scene.add(rose);
@@ -232,10 +232,11 @@ function updateParticles(time) {
 
 function animate() {
   requestAnimationFrame(animate);
-  const time = clock.getElapsedTime();
+  const deltaTime = clock.getDelta();
+  const time = clock.elapsedTime;
   updateParticles(time);
   rose.position.y = rose.userData.baseY + Math.sin(time * 0.5) * 0.025;
-  controls.update();
+  controls.update(deltaTime);
   renderer.render(scene, camera);
 }
 
